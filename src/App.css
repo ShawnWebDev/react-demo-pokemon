@@ -1,0 +1,33 @@
+body {
+    background-color: #333;
+    color: #9bd2d6;
+}
+
+.hello {
+    color: red
+}
+
+#poke-lookup, #poke-container {
+    display: flex;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    max-width: 500px;
+    gap: 0.5rem;
+}
+
+#poke-lookup {
+    flex-direction: column;
+    border: 2px solid green;
+}
+
+#poke-container {
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    border: 2px solid yellow;
+}
+
+.card {
+    border: 1px solid purple;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+}
