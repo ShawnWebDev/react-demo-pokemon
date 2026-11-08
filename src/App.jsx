@@ -7,10 +7,14 @@ function App() {
   const [pokeCards, setCard] = useState([]);
   const [teamErr, setTeamErr] = useState(null);
 
+  function setNewTeamErr(err) {
+    setTeamErr(err);
+  }
 
   const buildNewCardArr = (newCard, pokeCards) => {
     for (const card of pokeCards) {
       if (card.id === newCard.id) {
+        setNewTeamErr('Already have this card.');
         return pokeCards;
       }
     }
@@ -30,9 +34,6 @@ function App() {
     });
   }
 
-  function setNewTeamErr(err) {
-    setTeamErr(err);
-  }
 
   return (
     <>
