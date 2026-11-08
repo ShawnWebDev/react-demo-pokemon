@@ -1,121 +1,82 @@
-import axios from 'axios';
+import { useState } from "react";
+import PokemonTypeList from './components/Types.jsx';
+import NameForm from './components/NameForm.jsx';
 import './App.css';
 
 function App() {
-  // Will be refactoring to use state later..
+  const [pokeCards, setCard] = useState([]);
+  const [teamErr, setTeamErr] = useState(null);
 
-  const handleSubmit = (event) => {
-      event.preventDefault()
-      const formData = Object.fromEntries(new FormData(event.target));
-      const name = formData.name.trim().toLowerCase();
-      console.log("Form data: ", formData);
-      if (!name) return;
-      // pass form data to async GET request
-      getPokemonData(name);
-      event.target.reset();
-  } 
 
-  // .then.catch (chained callback functions - bleh)
-/* const getPokemonData = (name) => {
-    const pokemonData = axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-        .then((res) => console.log(res.data))
-        .catch((err) => console.error("reqest failed:", err.message))
-        .finally(() => console.log("Request Complete"))
-    generatePokeCard(pokemonData);
-  } */
-
-  // cleaner async function with try/catch 
-  const getPokemonData = async (name) => {
-    let pokemonData;
-    try {
-      pokemonData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-      generatePokeCard(getRelevantCardData(pokemonData));
-    } catch (err) {
-      console.error("Request Failed:", err.message);
-      alert("Error with pokemon search");
-    } finally {
-      console.log("Request Complete. Data: ", pokemonData);
+  const buildNewCardArr = (newCard, pokeCards) => {
+    for (const card of pokeCards) {
+      if (card.id === newCard.id) {
+        return pokeCards;
+      }
     }
-  } 
-
-  const getPokemonTypes = async () => {
-    try {
-       const pokemonData = await axios.get(`https://pokeapi.co/api/v2/type`);
-       console.log(pokemonData);
-       buildPokemonTypeArray(pokemonData);
-    } catch (err) {
-      console.error("Request Failed:", err.message);
-      alert("Error with pokemon type search");
-    }
+    console.log("newCard", newCard);
+    let name = newCard.name;
+    newCard.name = name.charAt(0).toUpperCase() + name.slice(1);
+    return [...pokeCards, newCard];
   }
 
-  const buildPokemonTypeArray = (pokemonData) => {
-    const pokemonTypeList = document.getElementById('type-list');
-    pokemonTypeList.innerHTML = '';
-    for (const obj of pokemonData.data.results) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${obj.name}`;
-        pokemonTypeList.appendChild(listItem);
-        //pokemonTypes.push(obj);
-    }
+  function addCard(newCard) {
+    setCard((pokeCards) => {
+      if (pokeCards.length < 6) {
+        return buildNewCardArr(newCard, pokeCards);
+      }
+      setNewTeamErr('Limit reached, remove one first.');
+      return pokeCards;
+    });
   }
 
-  const getRelevantCardData = (apiData) => {
-    const relevantData = {
-      "name": apiData.data.name,
-      "img": apiData.data.sprites.front_default,
-    }
-
-    return relevantData;
+  function setNewTeamErr(err) {
+    setTeamErr(err);
   }
-
-  const generatePokeCard = (relevantData) => {
-    const container = document.getElementById('poke-container');
-    const card = document.createElement('div');
-    const name = document.createElement('h3');
-    const img = document.createElement('img');
-
-    card.classList.add('card');
-    name.textContent = relevantData.name;
-    img.src = relevantData.img;
-    card.appendChild(name);
-    card.appendChild(img);
-    container.appendChild(card);
-  }
-
-  //let pokemonTypes = [];
 
   return (
-    <>  
-      <header>
-        <h1 className='hello'>Pokemon Project</h1>
+    <>
+      <header id='main-header'>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt='pokemon logo' />
+        <h1>bb</h1>
       </header>
-      <div>
-        <h2>Show Pokemon Type:</h2>
-        <button onClick={getPokemonTypes}>Types</button>
-        <ul id='type-list'></ul>
-      </div>
-      <form id='poke-lookup' onSubmit = {handleSubmit}>
-        <header>
-          <h2>Pokemon Lookup</h2>
-        </header>
 
-        <label htmlFor='name'>Pokemon Name:</label>
-        <input type='text' name='name' id='pokemon-name' placeholder='pikachu'/>
+      <main>
+        <NameForm onPokeData={addCard} />
 
-        <input type='submit' value='Search'/>
+        <section id='poke-container'>
 
-      </form>
-
-      <section id='poke-display'>
-        <header>
-          <h2>"Caught" Pokemon</h2>
-        </header>
-
-        <div id='poke-container'></div>
-      </section>
+          <header>
+            <h2>Cards</h2>
+          </header>
+          <p className="error">{}</p>
+          <div id="poke-team">
+            {/* testing card layout */}
+            {pokeCards.length > 0 && (
+              pokeCards.map((card) => (
+                <PokemonCard key={card.id} pokemon={card} />
+              ))
+            )}
+          </div>
+        </section>
+      </main>
     </>
   )
 }
 
-export default App
+export default App;
+
+function PokemonCard({ pokemon }) {
+  return (
+    <div className='card'>
+      <header className="card_header">
+        <p>
+          <span>{pokemon.name}</span><span>hp</span>
+        </p>
+      </header>
+      img
+      <br />
+      attributes?
+    </div>
+  )
+}

@@ -1,33 +1,55 @@
-body {
-    background-color: #333;
-    color: #9bd2d6;
-}
-
-.hello {
-    color: red
-}
-
-#poke-lookup, #poke-container {
+#main-header, #poke-lookup-container, #poke-container {
     display: flex;
+    width: 100%;
     padding: 1rem;
-    border-radius: 0.25rem;
-    max-width: 500px;
     gap: 0.5rem;
+    background-color: var(--main-bg-2);
+}
+
+#main-header, #poke-lookup-container, #poke-container {
+    align-items: center;
+    flex-direction: column;
+}
+
+#poke-lookup-container, #poke-container {
+    border-radius: 0.25rem;
+    min-width: 50vw;
 }
 
 #poke-lookup {
+    display: flex;
     flex-direction: column;
-    border: 2px solid green;
+    width: 100%;
+    gap: 0.5rem;
 }
 
 #poke-container {
     margin-top: 2rem;
     flex-wrap: wrap;
-    border: 2px solid yellow;
+}
+
+#poke-team {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 100vw;
 }
 
 .card {
-    border: 1px solid purple;
+    border: 3px solid var(--yellow-2);
+    background-color: var(--card-bg);
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
     border-radius: 0.25rem;
     padding: 0.25rem;
+
+    /* hard code size for now */
+    width: 150px;
+    height: 200px;
+}
+
+.error {
+    color: var(--red-1);
+    line-height: 0;
 }

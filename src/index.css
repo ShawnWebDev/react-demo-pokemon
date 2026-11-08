@@ -1,0 +1,29 @@
+:root {
+    --red-1: #FF0000;
+    --red-2: #CC0000;
+    --blue-1: #3B4CCA;
+    --yellow-1: #FFDE00;
+    --yellow-2: #B3A125;
+    --main-bg: #3F4370;
+    --main-bg-2: #2D3156;
+    --card-border: #C5C1B0;
+    --card-bg: #cfcfcf;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--main-bg);
+    color: var(--yellow-1);
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
