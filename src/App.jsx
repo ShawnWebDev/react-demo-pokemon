@@ -11,7 +11,7 @@ function App() {
     setTeamErr(err);
   }
 
-  const buildNewCardArr = (newCard, pokeCards) => {
+  function buildNewCardArr(newCard, pokeCards) {
     for (const card of pokeCards) {
       if (card.id === newCard.id) {
         setNewTeamErr('Already have this card.');
@@ -34,6 +34,15 @@ function App() {
     });
   }
 
+  function removeCard(cardId) {
+    setCard((pokeCards) => {
+      if (pokeCards.length >= 1) {
+        return pokeCards.filter((card) => card.id !== cardId);
+      }
+      return pokeCards;
+    })
+  }
+
 
   return (
     <>
@@ -48,14 +57,14 @@ function App() {
         <section id='poke-container'>
 
           <header>
-            <h2>Cards</h2>
+            <h2>Team</h2>
+            <p className="error">{teamErr}</p>
           </header>
-          <p className="error">{}</p>
           <div id="poke-team">
             {/* testing card layout */}
             {pokeCards.length > 0 && (
               pokeCards.map((card) => (
-                <PokemonCard key={card.id} pokemon={card} />
+                <PokemonCard key={card.id} pokemon={card} onRemove={removeCard} />
               ))
             )}
           </div>
@@ -67,17 +76,32 @@ function App() {
 
 export default App;
 
-function PokemonCard({ pokemon }) {
+function PokemonCard({ pokemon, onRemove }) {
   return (
     <div className='card'>
-      <header className="card_header">
-        <p>
-          <span>{pokemon.name}</span><span>hp</span>
-        </p>
-      </header>
-      img
-      <br />
-      attributes?
+      <div className="card-header-stat_container">
+        <header className="card_header">
+          <p>{pokemon.name}</p>
+          <sub>
+            {pokemon.types.map((type, idx) => (
+              <span key={type.type.name}>
+                {type.type.name}
+                {idx < pokemon.types.length - 1 && " / "}
+              </span>
+            ))}
+          </sub>
+          <img src={pokemon.sprites.front_default} />
+        </header>
+        <div className="card_stats">
+          <sub>Base Stats</sub>
+          <ul>
+            {pokemon.stats.map((stat) => (
+              <li key={stat.stat.name}>{stat.stat.name}: {stat.base_stat}</li>
+            ))}
+          </ul>
+          <button onClick={() => onRemove(pokemon.id)}>Remove</button>
+        </div>
+      </div>
     </div>
   )
 }

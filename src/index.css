@@ -6,8 +6,8 @@
     --yellow-2: #B3A125;
     --main-bg: #3F4370;
     --main-bg-2: #2D3156;
-    --card-border: #C5C1B0;
     --card-bg: #cfcfcf;
+    --card-bg-2: #C5C1B0;
 }
 
 *, *::before, *::after {

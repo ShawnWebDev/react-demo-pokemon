@@ -29,10 +29,10 @@
 }
 
 #poke-team {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
     gap: 0.5rem;
-    max-width: 100vw;
+    min-width: 50vw;
 }
 
 .card {
@@ -43,10 +43,44 @@
     font-weight: 600;
     border-radius: 0.25rem;
     padding: 0.25rem;
+}
 
-    /* hard code size for now */
-    width: 150px;
-    height: 200px;
+.card button {
+    color: red;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.card-header-stat_container {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.card_header {
+    display: flex;
+    flex-direction: column;
+}
+
+.card_header p {
+    margin: 0;
+}
+
+.card_stats {
+    background-color: var(--card-bg-2);
+    min-width: fit-content;
+    text-align: right;
+    padding: 0.5rem;
+}
+
+.card_stats ul {
+    padding: 0;
+}
+
+.card_stats ul li {
+    font-size: 90%;
+    font-weight: 400;
+    list-style: none;
 }
 
 .error {
