@@ -49,7 +49,7 @@ export default function NameForm({ onPokeData }) {
         <label htmlFor='poke-name'>Pokemon Name:</label>
         <input type='text' name='name' id='poke-name' placeholder='eg: pikachu'/>
         <input type='submit' value='Search' />
-        <h6 className="error">{formErr}</h6>
+        <h6 className="error" id="name-input-error">{formErr}</h6>
       </form>
     </section>
   )

@@ -1,6 +1,6 @@
 function PokemonCard({ pokemon, onRemove }) {
   return (
-    <div className='card'>
+    <div className='card' id={pokemon.name + "-card"}>
       <div className="card-header-stat_container">
         <header className="card_header">
           <p>{pokemon.name}</p>
@@ -12,7 +12,7 @@ function PokemonCard({ pokemon, onRemove }) {
               </span>
             ))}
           </sub>
-          <img src={pokemon.sprites.front_default} />
+          <img src={pokemon.sprites.front_default} alt={pokemon.name + " card image"}/>
         </header>
         <div className="card_stats">
           <sub>Base Stats</sub>

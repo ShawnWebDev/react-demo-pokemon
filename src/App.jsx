@@ -9,6 +9,9 @@ function App() {
 
   function setNewTeamErr(err) {
     setTeamErr(err);
+    setTimeout(() => {
+      setTeamErr(null);
+    }, 4000);
   }
 
   function buildNewCardArr(newCard, pokeCards) {
@@ -55,7 +58,7 @@ function App() {
         <section id='poke-container'>
           <header>
             <h2>Team</h2>
-            <p className="error">{teamErr}</p>
+            <p className="error" id="team-error">{teamErr}</p>
           </header>
 
           <div id="poke-team">
