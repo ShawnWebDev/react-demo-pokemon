@@ -4,8 +4,9 @@ import PokemonCard from "./components/PokemonCard.jsx";
 import './App.css';
 
 function App() {
-  const [pokeCards, setCard] = useState([]);
+  const [pokeCards, setpokeCards] = useState([]);
   const [teamErr, setTeamErr] = useState(null);
+  const [heading, setHeading] = useState("Team Builder");
 
   function setNewTeamErr(err) {
     setTeamErr(err);
@@ -14,20 +15,21 @@ function App() {
     }, 4000);
   }
 
-  function buildNewCardArr(newCard, pokeCards) {
-    for (const card of pokeCards) {
+  // set up use effect for pokeCards -> if starter selected...
+
+  function buildNewCardArr(newCard, prevCards) {
+    for (const card of prevCards) {
       if (card.id === newCard.id) {
         setNewTeamErr('Already have this card.');
-        return pokeCards;
+        return prevCards;
       }
     }
-    let name = newCard.name;
-    newCard.name = name.charAt(0).toUpperCase() + name.slice(1);
-    return [...pokeCards, newCard];
+    const name = newCard.name.charAt(0).toUpperCase() + newCard.name.slice(1);
+    return [...prevCards, { ...newCard, name }];
   }
 
   function addCard(newCard) {
-    setCard((pokeCards) => {
+    setpokeCards((pokeCards) => {
       if (pokeCards.length < 6) {
         return buildNewCardArr(newCard, pokeCards);
       }
@@ -37,7 +39,7 @@ function App() {
   }
 
   function removeCard(cardId) {
-    setCard((pokeCards) => {
+    setpokeCards((pokeCards) => {
       if (pokeCards.length >= 1) {
         return pokeCards.filter((card) => card.id !== cardId);
       }
@@ -49,7 +51,8 @@ function App() {
     <>
       <header id='main-header'>
         <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt='pokemon logo' />
-        <h1>Team Builder</h1>
+        <h1>{heading}</h1>
+        <button type="button" onClick={() => setHeading('Team Builder... Day 2')}></button>
       </header>
 
       <main>
@@ -69,7 +72,6 @@ function App() {
               ))
             )}
           </div>
-
         </section>
       </main>
     </>

@@ -15,7 +15,7 @@ it('Should clear the input after search', () => {
     cy.get('#poke-name').should('have.value', '')
 })
 
-it('does nothing on empty search submit', () => {
+it('Shows an error on an empty search submit', () => {
     cy.get('input[type=submit').click()
     cy.get('#name-input-error').should('have.text', 'Must Enter a Name')
 })
@@ -32,4 +32,12 @@ it('does not add a duplicate pokemon', () => {
     //make sure not in team container 'Already have this card.'
     cy.get('#team-error').should('have.text', 'Already have this card.')
     cy.get('#poke-team').children().should('have.length', 1)
+})
+
+it('Should remove a card', () => {
+    cy.get('#poke-name').type('ditto')
+    cy.get('input[type=submit]').click()
+    cy.get('#poke-team').children().should('have.length', 1)
+    cy.get('#Ditto-card .remove_card_btn').click()
+    cy.get('#poke-team').children().should('have.length', 0)
 })

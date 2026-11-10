@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 export default function NameForm({ onPokeData }) {
   const [formErr, setFormErr] = useState(null);
 
-  const createFormErr = (err) => {
+  useEffect(() => {
+    getPokemonData("pikachu");
+    getPokemonData("bulbasaur");
+    getPokemonData("charmander");
+  }, [])
+
+  function createFormErr(err) {
     setFormErr(err);
     setTimeout(() => {
       setFormErr(null);
     }, 4000);
   }
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
     const formData = Object.fromEntries(new FormData(event.target));
     const name = formData.name.trim().toLowerCase();
@@ -26,7 +32,7 @@ export default function NameForm({ onPokeData }) {
     event.target.reset();
   }
 
-  const getPokemonData = async (name) => {
+  async function getPokemonData(name) {
     try {
       const pokemonData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
       const data = pokemonData.data;

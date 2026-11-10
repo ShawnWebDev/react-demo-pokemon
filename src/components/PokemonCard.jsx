@@ -21,7 +21,7 @@ function PokemonCard({ pokemon, onRemove }) {
               <li key={stat.stat.name}>{stat.stat.name}: {stat.base_stat}</li>
             ))}
           </ul>
-          <button onClick={() => onRemove(pokemon.id)}>Remove</button>
+          <button onClick={() => onRemove(pokemon.id)} className="remove_card_btn">Remove</button>
         </div>
       </div>
     </div>

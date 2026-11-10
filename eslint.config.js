@@ -5,16 +5,11 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  {
-  files: ['cypress/**/*.js'], 
-    plugins: {
-      cypress: pluginCypress,
-      mocha: pluginMocha,
+{
+    files: ['cypress/**/*.js'],
+    languageOptions: {
+      globals: { ...globals.mocha, cy: 'readonly', Cypress: 'readonly' },
     },
-    rules: {
-      ...pluginCypress.configs.recommended.rules,
-      ...pluginMocha.configs.recommended.rules,
-    }
   },
   globalIgnores(['dist']),
   {
