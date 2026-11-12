@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import { getPokemonByName } from "../util/pokeApi.js";
 
-export default function NameForm({ onPokeData }) {
+export default function NameForm({ onPokeData, teamErr }) {
   const [formErr, setFormErr] = useState(null);
 
   useEffect(() => {
@@ -10,13 +10,6 @@ export default function NameForm({ onPokeData }) {
     getPokemonData("charmander");
   }, [])
 
-  function createFormErr(err) {
-    setFormErr(err);
-    setTimeout(() => {
-      setFormErr(null);
-    }, 4000);
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
     const formData = Object.fromEntries(new FormData(event.target));
@@ -24,9 +17,11 @@ export default function NameForm({ onPokeData }) {
     console.log("Form data: ", formData);
     if (!name) {
       console.log("name err")
-      createFormErr("Must Enter a Name");
+      setFormErr("Must Enter a Name");
       return;
     }
+    // Name field check passed, clear error
+    setFormErr(null);
     // pass form data to async GET request
     getPokemonData(name);
     event.target.reset();
@@ -34,15 +29,13 @@ export default function NameForm({ onPokeData }) {
 
   async function getPokemonData(name) {
     try {
-      const pokemonData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-      const data = pokemonData.data;
+      const data = await getPokemonByName(name);
+
+      // TODO: create function to extract only used card data, currently storing entire api response for each card
       onPokeData(data);
       console.log("Request result:", data);
     } catch (err) {
-      console.error("Request Failed:", err.message);
-      alert("Error with pokemon search");
-    } finally {
-      console.log("Request Complete");
+      setFormErr(err.message);
     }
   }
 
@@ -55,7 +48,7 @@ export default function NameForm({ onPokeData }) {
         <label htmlFor='poke-name'>Pokemon Name:</label>
         <input type='text' name='name' id='poke-name' placeholder='eg: pikachu'/>
         <input type='submit' value='Search' />
-        <h6 className="error" id="name-input-error">{formErr}</h6>
+        <p className="error" id="name-input-error">{formErr || teamErr}</p>
       </form>
     </section>
   )

@@ -1,3 +1,8 @@
+const TYPE_COLOR_MAP = {
+
+}
+
+
 function PokemonCard({ pokemon, onRemove }) {
   return (
     <div className='card' id={pokemon.name + "-card"}>
