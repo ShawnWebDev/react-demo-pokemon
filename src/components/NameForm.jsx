@@ -30,8 +30,8 @@ export default function NameForm({ onPokeData, teamErr }) {
   async function getPokemonData(name) {
     try {
       const data = await getPokemonByName(name);
-
       // TODO: create function to extract only used card data, currently storing entire api response for each card
+      // need: id, name, types, sprite, stats, abilities
       onPokeData(data);
       console.log("Request result:", data);
     } catch (err) {
