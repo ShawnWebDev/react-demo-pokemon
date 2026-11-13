@@ -8,7 +8,7 @@ export default function NameForm({ onPokeData, teamErr }) {
     getPokemonData("pikachu");
     getPokemonData("bulbasaur");
     getPokemonData("charmander");
-  }, [])
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -16,7 +16,7 @@ export default function NameForm({ onPokeData, teamErr }) {
     const name = formData.name.trim().toLowerCase();
     console.log("Form data: ", formData);
     if (!name) {
-      console.log("name err")
+      console.log("name err");
       setFormErr("Must Enter a Name");
       return;
     }
@@ -40,16 +40,23 @@ export default function NameForm({ onPokeData, teamErr }) {
   }
 
   return (
-    <section id='poke-lookup-container'>
+    <section id="poke-lookup-container">
       <header>
         <h2>Pokemon Lookup</h2>
       </header>
-      <form onSubmit={handleSubmit} id='poke-lookup'>
-        <label htmlFor='poke-name'>Pokemon Name:</label>
-        <input type='text' name='name' id='poke-name' placeholder='eg: pikachu'/>
-        <input type='submit' value='Search' />
-        <p className="error" id="name-input-error">{formErr || teamErr}</p>
+      <form onSubmit={handleSubmit} id="poke-lookup">
+        <label htmlFor="poke-name">Pokemon Name:</label>
+        <input
+          type="text"
+          name="name"
+          id="poke-name"
+          placeholder="eg: pikachu"
+        />
+        <input type="submit" value="Search" />
+        <p className="error" id="name-input-error">
+          {formErr || teamErr}
+        </p>
       </form>
     </section>
-  )
+  );
 }
