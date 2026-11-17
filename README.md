@@ -6,7 +6,7 @@ In this assignment, you will build a web application using the Vite + React deve
 
 ## Assignment Tasks
 
-### Task 1: Setup Your Development Environment
+### Setup Your Development Environment
 
 1. Set up your development environment with Vite and React. Install Vite and create a new React project using the following commands (Vite needs Node 20.19+ or 22.12+; the devcontainer uses Node 24):
 
@@ -27,7 +27,7 @@ In this assignment, you will build a web application using the Vite + React deve
 
    Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### Task 2: Create the User Interface
+### Create the User Interface
 
 1. Create a React component for the main user interface of your Pokemon Theme Team web application. This component should include a single button that users can click to fetch data and display Pokemon images.
 
@@ -35,25 +35,20 @@ In this assignment, you will build a web application using the Vite + React deve
 
 3. Ensure that the button is clearly labeled and easily accessible.
 
-### Task 3: Fetch Data from the Pokemon API
+### Fetch Data from the Pokemon API
 
 1. Implement a function that uses Axios to make a GET request to the [Pokemon API](https://pokeapi.co/).
 
 2. When the button created in Task 2 is clicked, this function should request data for a single, random Pokemon using the API.
 
-### Task 4: Filter Pokemon by Type
 
-1. After successfully fetching data for a random Pokemon, extract the type(s) of that Pokemon from the API response.
-
-2. Use the extracted type(s) to make additional requests to the Pokemon API to find 5 other Pokemon that share the same type(s) as the random Pokemon.
-
-### Task 5: Display Pokemon Images
+### Display Pokemon Images
 
 1. Display pictures of all 6 Pokemon on the screen. Each Pokemon should have its image shown, and you can use the "sprite" data from the API response to display these images.
 
 2. Arrange the Pokemon images in a visually appealing way on the web page.
 
-### Task 6: User Interaction
+### User Interaction
 
 1. Ensure that the application is user-friendly. When the button is clicked, it should initiate the process of fetching data and updating the display.
 
