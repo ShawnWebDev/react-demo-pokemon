@@ -1,10 +1,12 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, createHashRouter } from 'react-router'
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
 import PokeDetailsPage from "./pages/PokeDetailsPage.jsx";
 
 
-const router = createBrowserRouter([
+const createRouter = import.meta.env.PROD ? createHashRouter : createBrowserRouter
+
+const router = createRouter([
   {
     path: '/',
     element: <App />,
