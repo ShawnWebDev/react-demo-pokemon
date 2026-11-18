@@ -4,12 +4,6 @@ import { getPokemonByName } from "../util/pokeApi.js";
 export default function NameForm({ onPokeData, teamErr }) {
   const [formErr, setFormErr] = useState(null);
 
-  useEffect(() => {
-    getPokemonData("pikachu");
-    getPokemonData("bulbasaur");
-    getPokemonData("charmander");
-  }, []);
-
   function handleSubmit(event) {
     event.preventDefault();
     const formData = Object.fromEntries(new FormData(event.target));
@@ -38,6 +32,12 @@ export default function NameForm({ onPokeData, teamErr }) {
       setFormErr(err.message);
     }
   }
+
+  useEffect(() => {
+    getPokemonData("pikachu");
+    getPokemonData("bulbasaur");
+    getPokemonData("charmander");
+  });
 
   return (
     <section id="poke-lookup-container">

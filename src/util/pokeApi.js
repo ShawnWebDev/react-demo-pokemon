@@ -11,6 +11,6 @@ export async function getPokemonByName(name) {
   }
 }
 
-export async function getRandomPokemonByType(type) {
+export async function getRandomPokemonByType() {
   // TODO
 }

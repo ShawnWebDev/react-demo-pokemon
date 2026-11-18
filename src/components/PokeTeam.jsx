@@ -1,6 +1,4 @@
 import { useState } from "react";
-import NameForm from "./NameForm.jsx";
-import PokemonCard from "./PokemonCard.jsx";
 
 export default function PokeTeam() {
     const [pokeCards, setpokeCards] = useState([]);
