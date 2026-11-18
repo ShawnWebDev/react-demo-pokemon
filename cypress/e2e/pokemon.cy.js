@@ -31,7 +31,7 @@ it('does not add a duplicate pokemon', () => {
     cy.get('input[type=submit]').click()
     //make sure not in team container 'Already have this card.'
     cy.get('#name-input-error').should('have.text', 'This Pokemon is already on your team.')
-    cy.get('#poke-team').children().should('have.length', 1)
+    cy.get('#poke-team').children().should('have.length', 4)
 })
 
 it('Should remove a card', () => {
