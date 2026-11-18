@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getPokemonByName } from "../util/pokeApi.js";
 
 export default function NameForm({ onPokeData, teamErr }) {
@@ -32,12 +32,6 @@ export default function NameForm({ onPokeData, teamErr }) {
       setFormErr(err.message);
     }
   }
-
-  useEffect(() => {
-    getPokemonData("pikachu");
-    getPokemonData("bulbasaur");
-    getPokemonData("charmander");
-  });
 
   return (
     <section id="poke-lookup-container">
