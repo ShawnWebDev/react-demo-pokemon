@@ -3,5 +3,5 @@ import { defineConfig } from 'vite'
 
 export default defineConfig(({ mode }) => ({
   base: mode === 'production' ? '/pokemon-app/' : '/',
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
 }))
