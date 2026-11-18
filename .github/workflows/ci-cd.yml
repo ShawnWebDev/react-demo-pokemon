@@ -1,0 +1,61 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - name: Cypress (dev server)
+        uses: cypress-io/github-action@v7
+        with:
+          install: false
+          start: npm run dev
+          wait-on: 'http://localhost:5173/'
+
+      - name: Cypress (built site)
+        uses: cypress-io/github-action@v7
+        with:
+          install: false
+          start: npm run preview
+          wait-on: 'http://localhost:4173/react-demo-pokemon/'
+          config: baseUrl=http://localhost:4173/react-demo-pokemon/,specPattern=cypress/e2e-prod/**/*.cy.js
+
+      - name: Save dist/ for GitHub Pages
+        if: github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: cypress-run
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
