@@ -30,14 +30,15 @@ it('does not add a duplicate pokemon', () => {
     cy.get('#poke-name').type('ditto')
     cy.get('input[type=submit]').click()
     //make sure not in team container 'Already have this card.'
-    cy.get('#team-error').should('have.text', 'Already have this card.')
+    cy.get('#name-input-error').should('have.text', 'This Pokemon is already on your team.')
     cy.get('#poke-team').children().should('have.length', 1)
 })
 
 it('Should remove a card', () => {
     cy.get('#poke-name').type('ditto')
     cy.get('input[type=submit]').click()
-    cy.get('#poke-team').children().should('have.length', 1)
+    // starts with 3 pokemon
+    cy.get('#poke-team').children().should('have.length', 4)
     cy.get('#Ditto-card .remove_card_btn').click()
-    cy.get('#poke-team').children().should('have.length', 0)
+    cy.get('#poke-team').children().should('have.length', 3)
 })
